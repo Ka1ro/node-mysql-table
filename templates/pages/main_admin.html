@@ -17,7 +17,7 @@
           <th>id</th>
           <th>name</th>
           <th>model</th>
-          <th>quantity</th>
+          <th>Available</th>
           <th>year</th>
           <th>price</th>
           <th>actions</th>
@@ -28,6 +28,36 @@
 
       </tbody>
     </table>
+  </div>
+
+  <div class="container mt-5">
+    <h2>Add Product</h2>
+      <form id="add-form">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="model">Model</label>
+                <input type="text" class="form-control" id="model" name="model" placeholder="Enter model">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="available">Available</label>
+                <input type="text" class="form-control" name="available" id="available" placeholder="Enter availability">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="year">Year</label>
+                <input type="text" class="form-control" name="year" id="year" placeholder="Enter year">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" name="price" id="price" placeholder="Enter price">
+            </div>
+          </div>
+          <button id="add-btn" class="btn btn-primary">Submit</button>
+      </form>
+      <!-- <button id="add-btn" class="btn btn-primary">Submit</button> -->
   </div>
 
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

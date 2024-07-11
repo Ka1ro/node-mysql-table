@@ -26,14 +26,8 @@ function loadStatic(url,req,res){
     });
   }
   else{
-    if(url == '/btn-delete'){
-      req.on('data', (data)=>{
-        console.log("got from html", data.toString('utf-8'));
-        // "DELETE FROM products WHERE `products`.`id` = 5"
-      })
-    }
-    res.write('404');
-    res.end();
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
   }
 }
 
@@ -44,7 +38,7 @@ function drawTable(isAdmin = false, query){
       loadHtml(isAdmin).then(html=>{
           sendQuery(`SELECT * FROM products`).then(db=>{
             const regEx = /{{\w*}}/g;
-            const reps = 3;
+            const reps = db.length;
             // let db = [[1,2,3,4,5,6],[7,8,9,0,1,2],[3,4,5,6,7,8]];
             let tableColumns = template.match(regEx);
             let tempCopy = '';
@@ -66,7 +60,7 @@ function drawTable(isAdmin = false, query){
 }
 
 function loginPage(res){
-  fs.readFile('./templates/pages/login2.html', {encoding:'utf-8'}).then(page=>{
+  fs.readFile('./templates/pages/login.html', {encoding:'utf-8'}).then(page=>{
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write(page);
     res.end();

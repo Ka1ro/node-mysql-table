@@ -26,13 +26,13 @@
           const formData = new FormData(form);
           const data = new URLSearchParams(formData);
 
-          fetch('/login', {
+          fetch('/enter', {
               method: 'POST',
               body: data,
           })
           .then(response => {
               if (response.redirected) {
-                  window.location.href = response.url;
+                window.location.href = response.url;
               } else {
                   return response.text();
               }

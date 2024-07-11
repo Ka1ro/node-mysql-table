@@ -1,25 +1,39 @@
 const url = require('url');
 const http = require('node:http');
-const fs = require('fs');
+const fs = require('node:fs/promises');
 const querystring = require('querystring');
+const {adminButtons} = require('./admin');
 
 let {loadHtml, drawTable, loadStatic, loginPage } = require('./loaders');
 let {checkLogin} = require('./login-validation');
 
 module.exports = requestHandler = (req, res) => {
-  // const url = req.url;
-  if (req.method === 'GET' && req.url === '/') {
-    loginPage(res)
-  } 
-  else if (req.method === 'POST' && req.url === '/login')  
-  {
-  checkLogin(req, res);
-  } 
-  else if (req.method === 'GET' && req.url === '/welcome') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('<h1>Welcome to the protected page!</h1>');
-  } else {
+  let url = req.url;
+  console.log(url);
+
+  if(req.method === "GET"){
+    if(url ==='/'){
+      drawTable(isAdmin=false).then(html=>res.end(html));
+    } else if(url ==='/login'){
+      loginPage(res)
+    }
+    else if(url ==='/welcome'){
+      drawTable(isAdmin=true).then(html=>res.end(html));
+    }
+    else{
+      loadStatic(url, req, res);
+    }
+  }
+  else if(req.method === "POST"){
+    if(url === '/enter'){
+      checkLogin(req, res);
+    }
+    else if(url.split('-')[0] === '/btn'){
+        adminButtons(url, req, res);
+    }
+    else{
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('Not Found');
+    }
   }
 }

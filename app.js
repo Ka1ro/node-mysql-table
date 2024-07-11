@@ -4,13 +4,9 @@ const {loginPage } = require('./loaders');
 
 
 let server = http.createServer((req, res)=>{
-  if(req.url == '/'){
-    loginPage(res);
-  } else{
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
+  requestHandler(req, res);
   }   
-}).listen(3001);
+).listen(3001);
 
 
 
